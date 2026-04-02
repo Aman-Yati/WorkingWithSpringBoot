@@ -30,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
         List<Student> students = studentRepository.findAll();
         List<StudentDTO> studentDtoList = students
                 .stream()
-                .map(student -> new StudentDTO(student.getId(),student.getName(), student.getEmail()))
+                .map(student ->modelMapper.map(student, StudentDTO.class))
                 .toList();
         return List.of();
     }
