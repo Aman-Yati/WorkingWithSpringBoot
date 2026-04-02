@@ -3,6 +3,7 @@ package com.aman.StudentManagementSystem.Controller;
 import com.aman.StudentManagementSystem.DTO.StudentDTO;
 import com.aman.StudentManagementSystem.Service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

@@ -5,6 +5,7 @@ import com.aman.StudentManagementSystem.Entity.Student;
 import com.aman.StudentManagementSystem.Repository.StudentRepository;
 import com.aman.StudentManagementSystem.Service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +15,14 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    private final ModelMapper modelMapper;
+
 
     @Override
     public StudentDTO getStudentById(Long id) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Student not found"));
-        StudentDTO studentDto = new StudentDTO(student.getId(), student.getName(), student.getEmail());
-        return studentDto;
+        return modelMapper.map(student, StudentDTO.class);
+
     }
 
     @Override
