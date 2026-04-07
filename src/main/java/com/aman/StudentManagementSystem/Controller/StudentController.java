@@ -1,12 +1,13 @@
 package com.aman.StudentManagementSystem.Controller;
 
+import com.aman.StudentManagementSystem.DTO.AddStudentRequestDTO;
 import com.aman.StudentManagementSystem.DTO.StudentDTO;
 import com.aman.StudentManagementSystem.Service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,13 +18,20 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping("/student")
-    public List<StudentDTO> getStudent(){
+    public ResponseEntity<List<StudentDTO>> getStudent(){
 
-        return studentService.getAllStudents();
+        return ResponseEntity.ok(studentService.getAllStudents());
     }
     @GetMapping("/students/{id}")
-    public StudentDTO getstudentbyid(@PathVariable Long id){
-        return studentService.getStudentById(id);
+    public ResponseEntity<StudentDTO> getstudentbyid(@PathVariable Long id){
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
+
+    @PostMapping
+    public ResponseEntity<StudentDTO> createNewStudent(@RequestBody AddStudentRequestDTO addStudentRequestDTO){
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createNewStudent(addStudentRequestDTO));
+    }
+
 
 }
